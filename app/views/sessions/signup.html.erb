@@ -1,0 +1,15 @@
+<%= form_tag signup_path do %>
+    <label>Name:</label><br>
+    <%= text_field_tag :'login[name]' %><br>
+
+    <label>Email:</label><br>
+    <%= text_field_tag :'login[email]' %><br>
+
+    <label>Username:</label><br>
+    <%= text_field_tag :'login[username]' %><br>
+
+    <label>Password:</label><br>
+    <%= text_area_tag :'login[password]' %><br>
+
+    <%= submit_tag "Sign Up" %>
+<% end %>
