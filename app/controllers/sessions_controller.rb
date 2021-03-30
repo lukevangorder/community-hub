@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
 
+    def foyer
+    end
+
     def new #user login
     end
 
