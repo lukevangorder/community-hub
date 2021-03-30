@@ -11,10 +11,12 @@ class SessionsController < ApplicationController
         if @user == nil
             @user = User.find_by(email: params[:login][:identification])
         end
-        if @user.authenticate(params[:password])
-            sessions[:user_id] = @user.id
+        if @user.authenticate(params[:login][:password])
+            session[:user_id] = @user.id
             redirect_to '/home'
-        end # Add error handling here
+        else # Add error handling here
+            redirect_to '/'
+        end
     end
 
     def signup #user sign up
@@ -23,9 +25,14 @@ class SessionsController < ApplicationController
     def register
         @user = User.new(username: params[:login][:username], email: params[:login][:email], password: params[:login][:password], name: params[:login][:name])
         if @user.save
-            sessions[:user_id] = @user.id
+            session[:user_id] = @user.id
             redirect_to '/home'
         end # Add error handling here
+    end
+
+    def logout
+        session.delete :user_id
+        redirect_to '/'
     end
 
 end
