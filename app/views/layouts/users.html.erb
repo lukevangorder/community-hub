@@ -1,0 +1,18 @@
+<!-- app/views/layouts/application.html.erb -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flatiron Store</title>
+  <%= stylesheet_link_tag    'user', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="sidenav">
+    <a><%= link_to "Home" , home_path %></a>
+</div>
+<%= yield %>
+
+</body>
+</html> 

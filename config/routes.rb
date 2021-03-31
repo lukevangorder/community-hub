@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   post "/signup", to: "sessions#register"
   get "/home", to: "users#home"
   get "/logout", to: "sessions#logout"
+  # get 'auth/facebook'
+  get '/auth/facebook/callback' => 'sessions#facebook' 
+  get 'auth/failure', to: redirect('/')
 end

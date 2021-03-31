@@ -35,4 +35,16 @@ class SessionsController < ApplicationController
         redirect_to '/'
     end
 
+    def facebook
+        binding.pry
+        @user = User.find_or_create_by(email: auth['info']['email'])
+        if @user
+            @user.name = auth['info']['name']
+            @user.save
+            redirect_to '/home'
+        else
+            redirect_to '/'
+        end
+    end
+
 end
