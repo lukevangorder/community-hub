@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   # get 'auth/facebook'
   get '/auth/facebook/callback' => 'sessions#facebook' 
   get 'auth/failure', to: redirect('/')
+  resources :users, only: [:show]
 end
