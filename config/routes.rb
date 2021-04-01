@@ -11,4 +11,7 @@ Rails.application.routes.draw do
   get '/auth/facebook/callback' => 'sessions#facebook' 
   get 'auth/failure', to: redirect('/')
   resources :users, only: [:show]
+  resources :events, only: [:index]
+  get '/events/new', to: "events#new"
+  post '/events', to: "events#create"
 end
