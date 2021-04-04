@@ -12,10 +12,13 @@
     <%= f.datetime_field :ends_at%><br>
 
     <%= f.collection_check_boxes :location, @locations, :id, :name %>
-    <%= f.fields_for :location, @event.location do |location_field| %>
-        <%= location_field.text_field :name %>
-        <%= location_field.text_field :address %>
-        <%= location_field.text_area :info %>
+    <%= f.fields_for :location, @location do |location_field| %>
+        <%= f.label :name %><br>
+        <%= location_field.text_field :name %><br>
+        <%= f.label :address %><br>
+        <%= location_field.text_field :address %><br>
+        <%= f.label :info %><br>
+        <%= location_field.text_area :info %><br>
     <% end %>
 
     <%= f.submit %>

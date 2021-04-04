@@ -1,1 +1,3 @@
-<%= @user.name %>
+<%= @user.name %><br>
+<%= render partial: "events/listed", locals: {events: @events} %><br>
+<%= render partial: "locations/listed", locals: {locations: @locations} %>
