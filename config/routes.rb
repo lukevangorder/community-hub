@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :events, only: [:index]
   get '/events/new', to: "events#new"
   post '/events', to: "events#create"
+  get '/locations', to: "locations#index"
 end
