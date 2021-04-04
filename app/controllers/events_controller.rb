@@ -12,7 +12,6 @@ class EventsController < ApplicationController
     end
 
     def create
-        binding.pry
         event = Event.new(event_params)
         event.user = User.find(session[:user_id])
         if event.save
