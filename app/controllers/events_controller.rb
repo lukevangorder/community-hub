@@ -11,11 +11,17 @@ class EventsController < ApplicationController
     end
 
     def create
-        event = Event.new(name: params[:event][:name], info: params[:event][:info], starts_at: params[:event][:starts_at], ends_at: params[:event][:ends_at])
+        event = Event.new(event_params)
+        event.user = User.find(session[:user_id])
         if event.save
-            User.find(sessions[:user_id]).events < event
             redirect_to '/events'
-        end #add error handling
+        end
+    end
+
+    private
+
+    def event_params
+        params.require(:event).permit(:name, :info, :starts_at, :ends_at, :user)
     end
 
 end

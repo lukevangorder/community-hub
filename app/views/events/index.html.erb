@@ -1,1 +1,2 @@
 <%= link_to "Create a New Event", events_new_path %>
+<%= render partial: "events/listed", locals: {events: @events} %>
