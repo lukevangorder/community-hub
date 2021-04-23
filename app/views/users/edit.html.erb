@@ -1,0 +1,7 @@
+<h1 class='userpage-label'><%= @user.name %>'s Page</h2><br>
+<h2 class='userpage-label'>About <%= @user.name %>:</h2><br>
+<div class='userpage-label'>
+<%= form_for @user do |f| %>
+    <%= f.text_area :bio %><br>
+    <%= f.submit "Update Bio" %>
+<% end %>

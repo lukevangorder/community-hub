@@ -4,16 +4,19 @@
 <html>
 <head>
   <title>Community Hub</title>
-  <%= stylesheet_link_tag    'user', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'user', media: 'all', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
 
+<div class="sideright">
+</div>
 <div class="sidenav">
     <a><%= link_to "Home" , home_path %></a>
-    <a><%= link_to "My Profile", user_path(session[:user_id]) %></a>
     <a><%= link_to "Events", events_path %></a>
     <a><%= link_to "Locations", locations_path %></a>
+    <a><%= link_to "Log Out", logout_path %></a>
 </div>
 <%= yield %>
 

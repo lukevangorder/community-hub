@@ -1,0 +1,7 @@
+<div class='eventbox'>
+<%= event.name %><br>
+<%= event.normalize_time %><br>
+<%= event.info %><br><br>
+<a><%= link_to event.user.name, user_path(event.user) %></a><br>
+<a><%= link_to event.location.name, location_path(event.location) %></a>
+</div>

@@ -1,2 +1,10 @@
-<%= link_to "Create a New Location", locations_new_path %>
+<h2 class='userpage-label'><%= link_to "Create a New Location", locations_new_path %></h2>
+<div class='filter'>
+  <h3>Filter locations:</h3>
+  <%= form_tag("/locations", method: "get") do %>
+    <%= select_tag "user", options_from_collection_for_select(@users, "id", "name"), include_blank: true %>
+    <%= submit_tag "Filter" %>
+  <% end %>
+</div>
+<br>
 <%= render partial: "locations/listed", locals: {locations: @locations} %>

@@ -1,3 +1,6 @@
-<%= @user.name %><br>
-<%= render partial: "events/listed", locals: {events: @events} %><br>
-<%= render partial: "locations/listed", locals: {locations: @locations} %>
+<h2 class='userpage-username'>@<%= @user.username %></h2>
+<h1 class='userpage-label'><%= @user.name %>'s Page</h2><br>
+<h2 class='userpage-label'>About <%= @user.name %>:</h2><br>
+<p class='userpage-label'><%= @user.bio %></p><br>
+<h2 class='userpage-label'><%= link_to "Events", user_events_path(@user) %></h2><br>
+<h2 class='userpage-label'><%= link_to "Locations", location_events_path(@user) %></h2><br>

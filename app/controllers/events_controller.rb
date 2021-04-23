@@ -3,7 +3,19 @@ class EventsController < ApplicationController
     layout "users"
 
     def index
-        @events = Event.all
+        @users = User.all
+        @locations = Location.all
+        if params[:user_id]
+            @events = Event.where(user_id: params[:user_id].to_s)
+        elsif params[:location_id]
+            @events = Event.where(location_id: params[:location_id].to_s)
+        else
+            @events = Event.all
+        end
+    end
+
+    def show
+        @event = Event.find(params[:id])
     end
 
     def new
@@ -13,24 +25,43 @@ class EventsController < ApplicationController
     end
 
     def create
-        binding.pry
-        event = Event.new(event_params)
-        event.user = User.find(session[:user_id])
-        if params[:event][:location][1]
-            event.location = Location.find(params[:event][:location][1])
-        else
-            event.location = Location.find_or_create_by(params[:event][:locations_attributes])
+        @event = Event.new(event_params)
+        @location = @event.location
+        @event.user = User.find(session[:user_id])
+        if params[:event][:location_id].present?
+            @event.location = Location.find(params[:event][:location_id])
         end
-        binding.pry
-        if event.save
+        if @event.valid? && @event.location.valid?
+            @event.location.save
+            @event.save
             redirect_to '/events'
+        else
+            @locations = Location.all
+            render :new
+        end
+    end
+
+    def edit
+        @event = Event.find(params[:id])
+        @location = @event.location
+        @locations = Location.all
+    end
+
+    def update
+        @event = Event.find(params[:id])
+        @event.update(event_params)
+        if @event.valid? && @event.location.valid? && @event.user.id == session[:user_id]
+            redirect_to '/home'
+        else
+            @locations = Location.all
+            render :edit
         end
     end
 
     private
 
     def event_params
-        params.require(:event).permit(:name, :info, :starts_at, :ends_at, :user, location_ids:[], locations_attributes: [:name, :address, :info])
+        params.require(:event).permit(:name, :info, :starts_at, :location, :ends_at, :user, location_ids:[], location_attributes: [:name, :address, :info])
     end
 
 end

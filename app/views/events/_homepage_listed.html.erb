@@ -1,8 +1,8 @@
-
- <% events.each do |event| %>
+<% events.each do |event| %>
     <div class='eventbox'>
     <a><%= link_to event.name, event_path(event)%></a><br><br>
     <%= event.normalize_time %><br>
     <%= event.info %><br>
+    <%= link_to "Edit Event", edit_event_path(event) %><br>
     </div>
 <% end %>

@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
     end
 
     def new #user login
+        @user = User.new
     end
 
     def create
@@ -14,20 +15,25 @@ class SessionsController < ApplicationController
         if @user.authenticate(params[:login][:password])
             session[:user_id] = @user.id
             redirect_to '/home'
-        else # Add error handling here
-            redirect_to '/'
+        else 
+            @user.errors[:base] << "Username or password incorrect"
+            render :new
         end
     end
 
     def signup #user sign up
+        @user = User.new
     end
 
     def register
         @user = User.new(username: params[:login][:username], email: params[:login][:email], password: params[:login][:password], name: params[:login][:name])
-        if @user.save
+        if @user.valid?
+            @user.save
             session[:user_id] = @user.id
             redirect_to '/home'
-        end # Add error handling here
+        else
+            render :signup
+        end 
     end
 
     def logout
@@ -36,15 +42,31 @@ class SessionsController < ApplicationController
     end
 
     def facebook
-        binding.pry
-        @user = User.find_or_create_by(email: auth['info']['email'])
+        @user = User.find_by(email: auth['info']['email'])
         if @user
-            @user.name = auth['info']['name']
-            @user.save
+            session[:user_id] = @user.id
             redirect_to '/home'
         else
-            redirect_to '/'
+            @user = User.new
+            @user.email = auth['info']['email']
+            @user.password = 'facebook'
+            @user.name = auth['info']['name']
+            @user.username = auth['info']['email'].split('@').first
+            i = 0
+            unless @user.valid?
+                i += 1
+                @user.username = auth['info']['email'].split('@').first.concat(i.to_s)
+            end
+            @user.save
+            session[:user_id] = @user.id
+            redirect_to '/home'
         end
+    end
+
+    private
+
+    def auth
+        request.env['omniauth.auth']
     end
 
 end

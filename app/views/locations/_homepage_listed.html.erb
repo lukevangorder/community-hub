@@ -1,0 +1,10 @@
+
+<% locations.each do |location| %>
+    <div class='locationbox'>
+    <a><%= location.name %></a><br><br>
+    <%= location.address %><br>
+    <%= location.info %><br>
+    <%= link_to "Edit Location", edit_location_path(location) %><br>
+    </div>
+ <% end %>
+ 

@@ -1,4 +1,8 @@
-<div style="position:absolute, left:-280px">
-<%= @user.name %>
-<%= link_to "Log Out", logout_path %>
-</div>
+<h2 class='userpage-username'>@<%= @user.username %></h2>
+<h1 class='userpage-label'><%= @user.name %>'s Page</h2><br>
+<h2 class='userpage-label'>About <%= @user.name %>:</h2><br>
+<p class='userpage-label'><%= @user.bio %> <%= link_to "Edit Bio", edit_user_path(@user) %></p><br>
+<h2 class='userpage-label'>Your Events</h2><br>
+<%= render partial: "events/homepage_listed", locals: {events: @user.events} %>
+<br><h2 class='userpage-label'>Your Locations</h2><br>
+<%= render partial: "locations/homepage_listed", locals: {locations: @user.locations} %>

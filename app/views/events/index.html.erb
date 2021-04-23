@@ -1,2 +1,14 @@
-<%= link_to "Create a New Event", events_new_path %>
+<h2 class='userpage-label'><%= link_to "Create a New Event", event_new_path %></h2>
+<div class='filter'>
+<h3>Filter by user:</h3>
+<%= form_tag("/events", method: "get") do %>
+  <%= select_tag "user_id", options_from_collection_for_select(@users, "id", "name"), include_blank: true %>
+  <%= submit_tag "Filter" %>
+<% end %>
+<h3>Filter by location:</h3>
+<%= form_tag("/events", method: "get") do %>
+  <%= select_tag "location_id", options_from_collection_for_select(@locations, "id", "name"), include_blank: true %>
+  <%= submit_tag "Filter" %>
+<% end %><br>
+</div>
 <%= render partial: "events/listed", locals: {events: @events} %>

@@ -1,7 +1,8 @@
-<div>
+
 <% locations.each do |location| %>
-   <%= location.name %><br>
+   <div class='locationbox'>
+   <a><%= location.name %></a><br><br>
    <%= location.address %><br>
    <%= location.info %><br>
+   </div>
 <% end %>
-</div>
